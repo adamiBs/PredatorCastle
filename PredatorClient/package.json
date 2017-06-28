@@ -20,6 +20,7 @@
   "dependencies": {
     "bootstrap-sweetalert": "^1.0.1",
     "express": "^4.15.3",
-    "progressbar.js": "^1.0.1"
+    "progressbar.js": "^1.0.1",
+    "uniq": "^1.0.1"
   }
 }
