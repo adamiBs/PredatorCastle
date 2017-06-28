@@ -50,7 +50,7 @@ def getGroupMembers(groupName):
     
 #~~~~~~~~~~~~~ Common Methods
 def scrollDown():
-  var_cont = True
+    var_cont = True
     last_height = 0
     while var_cont:
         d.execute_script("window.scrollTo(0,document.body.scrollHeight)")
@@ -69,8 +69,6 @@ def ConvertDataToFile(data):
 def extractUserIdsFromUrl(url):
     return 1
 def getFriendsListForUser(usr_id):
-    return 1
-def getFriends(usr_id):
     return 1
 def getMutualFriends(usr_id):
     return 1
