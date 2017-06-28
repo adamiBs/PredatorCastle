@@ -155,33 +155,40 @@ def scrollDown(d):
 def ConvertDataToFile(data):
     return 1
 
-#~~~~~ User Details Methods
+
+# ~~~~~ User Details Methods
 def getUserWorkPlaceName(usr_id):
-  d = openAboutPage(usr_id)
-  workPlaceElement = d.find_elements_by_xpath("//div[contains(@class, '_6a')]//span[contains(@class, '_50f8')  and contains(@class, '_50f4')]")
-  workplace = d.execute_script("return arguments[0].innerText", workPlaceElement[0])
-  return workplace if ( workplace != "No workplaces to show" ) else ""
+    d = openAboutPage(usr_id)
+    workPlaceElement = d.find_elements_by_xpath(
+        "//div[contains(@class, '_6a')]//span[contains(@class, '_50f8')  and contains(@class, '_50f4')]")
+    workplace = d.execute_script("return arguments[0].innerText", workPlaceElement[0])
+    return workplace if (workplace != "No workplaces to show") else ""
+
 
 def getUserStudyPlace(usr_id):
-  d = openAboutPage(usr_id)
-  workPlaceElement = d.find_elements_by_xpath("//div[contains(@class, '_6a')]//span[contains(@class, '_50f8')  and contains(@class, '_50f4')]")
-  studyplace = d.execute_script("return arguments[0].innerText", workPlaceElement[1])
-  return studyplace if ( studyplace != "No schools to show" ) else ""
+    d = openAboutPage(usr_id)
+    workPlaceElement = d.find_elements_by_xpath(
+        "//div[contains(@class, '_6a')]//span[contains(@class, '_50f8')  and contains(@class, '_50f4')]")
+    studyplace = d.execute_script("return arguments[0].innerText", workPlaceElement[1])
+    return studyplace if (studyplace != "No schools to show") else ""
+
 
 def getUserHometown(usr_id):
-  d = openAboutPage(usr_id)
-  homeTab = d.find_elements(By.PARTIAL_LINK_TEXT, "Places He's Lived")
-  if len(homeTab) == 0:
-      homeTab = d.find_elements(By.PARTIAL_LINK_TEXT, "Places She's Lived")
-  homeTab[0].click()
-  time.wait(1)
-  currCity = d.find_elements_by_id('current_city')
-  return "" if ( len(currCity) == 0 ) else d.execute_script("return arguments[0].innerText", currCity[0])
+    d = openAboutPage(usr_id)
+    homeTab = d.find_elements(By.PARTIAL_LINK_TEXT, "Places He's Lived")
+    if len(homeTab) == 0:
+        homeTab = d.find_elements(By.PARTIAL_LINK_TEXT, "Places She's Lived")
+    homeTab[0].click()
+    time.wait(1)
+    currCity = d.find_elements_by_id('current_city')
+    return "" if (len(currCity) == 0) else d.execute_script("return arguments[0].innerText", currCity[0])
+
 
 def openAboutPage(usr_id):
-  d = login(usr_name,usr_pass)
-  d.get("https://www.facebook.com/" + usr_id + "/about")
-  return d
+    d = login(usr_name, usr_pass)
+    d.get("https://www.facebook.com/" + usr_id + "/about")
+    return d
+
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Ideas
 def extractUserIdsFromUrl(url):
