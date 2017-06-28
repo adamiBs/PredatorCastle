@@ -64,7 +64,7 @@ def getFriendsStatistics(usr_id):
     suspectData.work = getUserWorkPlaceName(usr_id)
     suspectData.city = getUserHometown(usr_id)
     suspectData.study = getUserStudyPlace(usr_id)
-    
+
     for currId in lstFriends:
         d.get("https://m.facebook.com/" + currId)
         if suspectData.work != '' and \
