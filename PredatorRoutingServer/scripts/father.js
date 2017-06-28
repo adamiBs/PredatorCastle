@@ -14,7 +14,7 @@ module.exports = {
     handleRequest: function (req, result) {
         var finalObj = {};
 
-        friends.getAllFriendsById(req.body.userId, function (res) {
+        friends.getFriendStatisticsById(req.body.userId, function (res) {
             finalObj.friendData = res;
             complete(result, finalObj);
         });
