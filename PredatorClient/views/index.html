@@ -5,6 +5,7 @@
 
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
         <link rel="stylesheet" href="/static/styles/css.css">
+        <!--<link rel="stylesheet" href="/static/node_modules/sweetalert/dist/sweetalert.css">-->
     </head>
 
     <body>
@@ -12,6 +13,11 @@
         <button type="button" class="col-md-offset-1 col-md-4 btn btn-primary" data-toggle="modal" data-target="#specificUserModal">
             <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
         </button>
+
+
+
+        <div id="suspectPercent"></div>
+
 
         <!--<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#settingsModal"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span></button>
 
@@ -42,7 +48,7 @@
                 <div class="modal-body">
                     </br>
                     <center>
-                        <img class="profilePicture" src="/static/images/abstract-user-flat-4-300px.png" alt="...">
+                        <img src="\static\images\abstract-user-flat-4-300px.png" class="profilePicture" id="profilePicture" alt="...">
                     </center>
                     </br>
                     <div class="input-group">
@@ -144,7 +150,7 @@
 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Search</button>
+                    <button type="button" class="btn btn-primary" onClick="sendRequest()">Search</button>
                 </div>
             </div>
         </div>-->
@@ -154,6 +160,7 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
         <script src="/static/scripts/js.js"></script>
+        <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>         -->
         <!--<script src="D:/Programming/Projects/HackatonMafat/routing.js"></script>-->
 
     </body>
