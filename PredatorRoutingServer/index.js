@@ -1,10 +1,9 @@
 const express = require('express');
+const father = require('./scripts/father');
 const app = express();
 const PORT = 2424;
 
-app.get('/', function (req, res) {
-    res.json({"hello": "world"});
-});
+app.post('/', father.handleRequest);
 
 //app.use(function (req, res) {
 //    res.send(404);
