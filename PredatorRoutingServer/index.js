@@ -5,9 +5,9 @@ const PORT = 2424;
 
 app.post('/api/data', father.handleRequest);
 
-//app.use(function (req, res) {
-//    res.send(404);
-//});
+app.use(function (req, res) {
+    res.send(404);
+});
 
 app.listen(PORT, function () {
     console.log('Example app listening on port ' + PORT + '!')

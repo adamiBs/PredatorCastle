@@ -1,6 +1,7 @@
 from BaseHTTPServer import BaseHTTPRequestHandler,HTTPServer
 import json
 from collections import namedtuple
+
 import profile
 
 
@@ -15,16 +16,15 @@ def json2obj(data): return json.loads(data, object_hook=_json_object_hook)
 class routing(BaseHTTPRequestHandler):
     # Handler for the GET requests
     def do_GET(self):
-        if self.path == "/":
-            self.send_response(200)
-            self.send_header('Content-type', 'text/html')
-            self.end_headers()
-            # Send the html message
-            self.wfile.write("Hello World !")
-            return
-
-        if self.path == "/profile":
-            profile.returnAdami(self)
+        # if self.path == "/":
+        #     self.send_response(200)
+        #     self.send_header('Content-type', 'text/html')
+        #     self.end_headers()
+        #     # Send the html message
+        #     self.wfile.write("Hello World !")
+        #     return
+        if self.path.split('/')[1] == "friends":
+            profile.getFriends(self)
             return
 
         # Redirect on invalid path
