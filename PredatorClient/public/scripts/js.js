@@ -34,13 +34,13 @@ function userIDTypeChanged(){
   }
 }
 
-
 function UIDLoad(){
     var uId = document.getElementById("UIDInput").value;
     getUserProfilePicture(uId);
 }
 
 function URLLoad(){   
+    alert("Not yet implemented")
 }
 
 function getUserProfilePicture(p_uID){
