@@ -20,10 +20,30 @@ def login(username,usr_pass):
   elm_pass.send_keys(usr_pass)
   elm_login.click()
 
-#~~~~~~~~~~~~~ Working Methods
+#~~~~~~~~~~~~~ User Methods
 def getFriends(usr_id):
-    d.get("https://www.facebook.com/search/" + usr_id +"/friends")
-    var_cont = True
+    d.get("https://www.facebook.com/search/" + usr_id + "/friends")
+    scrollDown()
+    strr = d.page_source
+    lst_ids = [strr[m.start()+15:m.start()+30] for m in list(re.finditer("profile.php",strr))]
+    lst_ids = [idd[0:re.search("[0-9]+",idd).end()] for idd in lst_ids]
+    return lst_ids
+
+def getMutualFriends(usr_id1, usr_id2):
+    d.get("https://www.facebook.com/browse/mutual_friends/?uid=" + usr_id1 + "&node=" + usr_id2)
+    scrollDown()
+    pageSrc = d.page_source
+    lst_ids = [strr[m.start()+15:m.start()+30] for m in list(re.finditer("profile.php",strr))]
+    return len(lst_ids)
+
+#~~~~~~~~~~~~~ Groups Methods
+def openGroupMembersPage(groupURL):
+    d.get(groupURL)
+    d.find
+    
+#~~~~~~~~~~~~~ Common Methods
+def scrollDown():
+  var_cont = True
     last_height = 0
     while var_cont:
         d.execute_script("window.scrollTo(0,document.body.scrollHeight)")
@@ -31,12 +51,10 @@ def getFriends(usr_id):
         height = d.execute_script("return document.body.scrollHeight")
         var_cont = ( height != last_height )
         last_height = height
-    strr = d.page_source
-    lst_ids = [strr[m.start()+15:m.start()+30] for m in list(re.finditer("profile.php",strr))]
-    lst_ids = [idd[0:re.search("[0-9]+",idd).end()] for idd in lst_ids]
-    return lst_ids
 
-def getUserLikes(usr_id):
+def ConvertDataToFile(data):
+    return 1
+    
     
 
 
