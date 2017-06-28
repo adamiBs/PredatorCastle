@@ -8,8 +8,7 @@
         <!--<link rel="stylesheet" href="/static/node_modules/sweetalert/dist/sweetalert.css">-->
     </head>
 
-    <body>
-        
+    <body>     
         <button type="button" class="col-md-offset-1 col-md-4 btn btn-primary" data-toggle="modal" data-target="#specificUserModal">
             <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
         </button>
@@ -46,6 +45,14 @@
                         <h4 class="modal-title" id="myModalLabel"><b>Search By User</b></h4>
                     </div>
                 <div class="modal-body">
+                       <div id="uIdDiv" class="">
+                            <span>Unique Id: </span>
+                            <span id="uIdSpan">empty</span>
+                        </div>
+                        <div id="nameDiv" class="">
+                            <span>Name: </span>
+                            <span id="nameSpan">empty</span>
+                        </div>
                     </br>
                     <center>
                         <img src="\static\images\abstract-user-flat-4-300px.png" class="profilePicture" id="profilePicture" alt="...">

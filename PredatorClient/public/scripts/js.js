@@ -37,18 +37,28 @@ function userIDTypeChanged(){
   }
 }
 
+
+
 function UIDLoad(){
     var uId = document.getElementById("UIDInput").value;
-    getUserProfilePicture(uId);
+    getUserProfileData(uId);    
 }
 
 function URLLoad(){   
     alert("Not yet implemented")
 }
 
-function getUserProfilePicture(p_uID){
+function getUserProfileData(p_uID){
+    var access_token ="EAACEdEose0cBAF0kWBMiznqwj5RTzpm9GadhcX7LmBJ38IYYezzyRVBORUu6v7zeDYO0dOi4tksUCStpwEtntIDMCZA2ZBRaOxxs7WihgG0iAsqkUc8NtYhwZB2D2UFHJPQYdPJMRo49VVszZC1txFlVDGNXxZBSXhKYykqZAHTW5BKxSphGnmBoWg0HCjLzMZD";
+    
     var url = "https://graph.facebook.com/"+p_uID+"/picture?type=large&w%E2%80%8Cidth=720&height=720";
-    document.getElementById("profilePicture").src = url;  
+    document.getElementById("profilePicture").src = url;
+    document.getElementById("uIdSpan").innerHTML = p_uID;
+    
+    var url = "https://graph.facebook.com/123?fields=name&access_token="+access_token;
+    httpGetAsync(url,function(x){
+        document.getElementById("nameSpan").innerHTML = JSON.parse(x).name;
+    })
 }
 
 function httpGetAsync(theUrl, callback)
@@ -63,5 +73,10 @@ function httpGetAsync(theUrl, callback)
 }
 
 function sendRequest(){
-
+    var uId = undefined;
+    
+    if(document.getElementById("UIDRadio").checked){
+        uId = document.getElementById("UIDInput").value
+    }
+    
 }
