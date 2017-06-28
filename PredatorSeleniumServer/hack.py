@@ -2,15 +2,15 @@ import selenium
 import re
 import time
 from selenium import webdriver
-d = webdriver.Chrome()
+
+chromedriver = '/usr/local/bin/chromedriver'
+
 
 usr_name = 'aviron@tutanota.com'
 usr_pass = 'Aviron669!@#'
 
-def mainn():
-  login(usr_name,usr_pass)
-
 def login(username,usr_password):
+  d = webdriver.Chrome(chromedriver)
   d.get("https://www.facebook.com")
   elm_email = d.find_element_by_id("email")
   elm_pass = d.find_element_by_id("pass")
@@ -19,37 +19,46 @@ def login(username,usr_password):
   elm_email.send_keys(username)
   elm_pass.send_keys(usr_password)
   elm_login.click()
+  return d
 
 #~~~~~~~~~~~~~ User Methods
 def getFriends(usr_id):
+    d = login(usr_name,usr_pass)
     d.get("https://www.facebook.com/search/" + usr_id + "/friends")
-    scrollDown()
+    scrollDown(d)
     strr = d.page_source
     lst_ids = [strr[m.start()+15:m.start()+30] for m in list(re.finditer("profile.php",strr))]
     lst_ids = [idd[0:re.search("[0-9]+",idd).end()] for idd in lst_ids]
+    d.close()
     return lst_ids
 
 def getMutualFriendsCount(usr_id1, usr_id2):
+    d = login(usr_name,usr_pass)
     d.get("https://www.facebook.com/browse/mutual_friends/?uid=" + usr_id1 + "&node=" + usr_id2)
-    scrollDown()
+    scrollDown(d)
     pageSrc = d.page_source
     lst_ids = [pageSrc[m.start()+15:m.start()+30] for m in list(re.finditer("profile.php",pageSrc))]
+    d.close()
     return len(lst_ids)
 
 def getMutualFriendsList(usr_id1, usr_id2):
+    d = login(usr_name,usr_pass)
     d.get("https://www.facebook.com/browse/mutual_friends/?uid=" + usr_id1 + "&node=" + usr_id2)
-    scrollDown()
+    scrollDown(d)
     pageSrc = d.page_source
     lst_ids = [pageSrc[m.start()+15:m.start()+30] for m in list(re.finditer("profile.php",pageSrc))]
     lst_ids = [idd[0:re.search("[0-9]+",idd).end()] for idd in lst_ids]
+    d.close()
     return lst_ids
 
 #~~~~~~~~~~~~~ Groups Methods
 def getGroupMembers(groupName):
+    d = login(usr_name,usr_pass)
     d.get("https://www.facebook.com/groups/" + groupName + '/members')
+    d.close()
     
 #~~~~~~~~~~~~~ Common Methods
-def scrollDown():
+def scrollDown(d):
     var_cont = True
     last_height = 0
     while var_cont:
@@ -87,5 +96,3 @@ def extractGroupsFromHtml(html):
 #dates of friends added
 #friends in group
 
-
-mainn()
