@@ -12,6 +12,10 @@ app.get('/', function (req, res) {
 
 });
 
+app.use(function (req, res) {
+    res.send(404);
+});
+
 app.listen(PORT, function () {
     console.log('Example app listening on port 3000!')
 })
