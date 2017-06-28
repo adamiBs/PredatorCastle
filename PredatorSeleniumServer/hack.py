@@ -38,7 +38,13 @@ def getUserPosts(usr_id):
   return len(posts_by_user)
 
 def getUserGroups(usr_id):
-  return 1
+  d.get("https://facebook.com/" + usr_id + "/groups")
+  groupContainers = d.find_element_by_xpath(".//div[@class='fwb']//a")
+  index = 0
+  for container in groupContainers:
+    groups[index] = groupContainers[index].get_attribute("href")[re.search('/groups/',groupContainers[index].get_attribute("href")).end():]
+    index = index + 1
+  return groups
 
 def getMutualFriendsCount(usr_id1, usr_id2):
     d.get("https://www.facebook.com/browse/mutual_friends/?uid=" + usr_id1 + "&node=" + usr_id2)
@@ -110,4 +116,4 @@ def extractGroupsFromHtml(html):
 #friends in group
 
 
-mainn()
+#mainn()
