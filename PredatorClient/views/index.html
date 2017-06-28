@@ -42,26 +42,26 @@
                 <div class="modal-body">
                     </br>
                     <center>
-                        <img src="..." alt="...">
+                        <img class="profilePicture" src="/static/images/abstract-user-flat-4-300px.png" alt="...">
                     </center>
                     </br>
                     <div class="input-group">
                         <span class="input-group-addon">
-                            <input type="radio" name="radioGroup" aria-label="...">
+                            <input type="radio" id="UIDRadio" name="radioGroup" aria-label="..." onchange="userIDTypeChanged()" checked>
                         </span>
-                        <input type="text" class="form-control" placeholder="UID">
+                        <input type="text" id="UIDInput" class="form-control" placeholder="UID" autofocus>
                         <span class="input-group-btn">
-                            <button class="btn btn-default" type="button">Load</button>
+                            <button class="btn btn-default" type="button" id="UIDBtn" onClick="UIDLoad()">Load</button>
                         </span>
                     </div>
                     </br>
                     <div class="input-group">
                         <span class="input-group-addon">
-                            <input type="radio" name="radioGroup" aria-label="...">
+                            <input type="radio" id="URLRadio" name="radioGroup" aria-label="..." onchange="userIDTypeChanged()">
                         </span>
-                        <input type="text" class="form-control" placeholder="URL">
+                        <input type="text" id="URLInput" class="form-control" placeholder="URL" disabled>
                         <span class="input-group-btn">
-                            <button class="btn btn-default" type="button">Load</button>
+                            <button class="btn btn-default" type="button" id="URLBtn" disabled onClick="URLLoad()">Load</button>
                         </span>
                     </div>
                 </div>
@@ -71,7 +71,7 @@
 
 
 
-                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                <!--<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
                     <div class="panel panel-default">
                         <div class="panel-heading" role="tab" id="headingOne">
                         <h4 class="panel-title">
@@ -128,7 +128,7 @@
                         </div>
                         </div>
                     </div>
-                </div>
+                </div>-->
 
 
 
