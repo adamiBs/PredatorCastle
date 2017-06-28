@@ -20,17 +20,17 @@ function userIDTypeChanged(){
   if(document.getElementById("UIDRadio").checked){
     document.getElementById("UIDInput").disabled = false;
     document.getElementById("UIDBtn").disabled = false;
-    document.getElementById("URLInput").disabled = true;
-    document.getElementById("URLBtn").disabled = true;
-    document.getElementById("URLInput").value = "";
+    document.getElementById("USERNAMEInput").disabled = true;
+    document.getElementById("USERNAMEBtn").disabled = true;
+    document.getElementById("USERNAMEInput").value = "";
     document.getElementById("UIDInput").focus();
-  } else if(document.getElementById("URLRadio").checked){
+  } else if(document.getElementById("USERNAMERadio").checked){
     document.getElementById("UIDInput").disabled = true;
     document.getElementById("UIDBtn").disabled = true;
-    document.getElementById("URLInput").disabled = false;
-    document.getElementById("URLBtn").disabled = false;
+    document.getElementById("USERNAMEInput").disabled = false;
+    document.getElementById("USERNAMEBtn").disabled = false;
     document.getElementById("UIDInput").value = "";
-    document.getElementById("URLInput").focus();
+    document.getElementById("USERNAMEInput").focus();
   }
 }
 
@@ -41,7 +41,7 @@ function UIDLoad(){
     getUserProfileData(uId);    
 }
 
-function URLLoad(){   
+function USERNAMELoad(){   
     alert("Not yet implemented")
 }
 
@@ -52,7 +52,7 @@ function getUserProfileData(p_uID){
     document.getElementById("profilePicture").src = url;
     document.getElementById("uIdSpan").innerHTML = p_uID;
     
-    var url = "https://graph.facebook.com/123?fields=name&access_token="+access_token;
+    var url = "https://graph.facebook.com/"+p_uID+"?fields=name&access_token="+access_token;
     httpGetAsync(url,function(x){
         document.getElementById("nameSpan").innerHTML = JSON.parse(x).name;
     })
