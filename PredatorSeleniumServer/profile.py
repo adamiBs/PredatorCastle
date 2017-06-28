@@ -9,6 +9,6 @@ def getFriends(requestHandler):
     # Send the html message
     query_components = parse_qs(urlparse(requestHandler.path).query)
     userId = query_components["userid"][0]
-    friendList = json.dumps(hack.getFriends(userId))
-    requestHandler.wfile.write(friendList)
+    stats = json.dumps(hack.getFriendsStatistics(userId))
+    requestHandler.wfile.write(stats)
     return
