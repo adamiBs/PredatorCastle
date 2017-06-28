@@ -7,7 +7,7 @@ d = webdriver.Chrome()
 usr_name = 'aviron@tutanota.com'
 usr_pass = 'Aviron669!@#'
 
-def main():
+def mainn():
   login(usr_name,usr_pass)
 
 def login(username,usr_password):
