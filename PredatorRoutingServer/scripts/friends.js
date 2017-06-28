@@ -4,7 +4,7 @@ var seleniumServerDns = '127.0.0.1:8080'
 module.exports = {
     getAllFriendsById: function (id, sucess) {
         var options = {
-            uri: 'http://' + seleniumServerDns + '/friends/' + id,
+            uri: 'http://' + seleniumServerDns + '/friends/?userid=' + id,
             headers: {
                 'User-Agent': 'Request-Promise'
             },
