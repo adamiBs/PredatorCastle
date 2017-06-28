@@ -5,15 +5,47 @@
 
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
         <link rel="stylesheet" href="/static/styles/css.css">
+        <link href="https://fonts.googleapis.com/css?family=Bevan" rel="stylesheet">
+        <!--<link rel="stylesheet" href="/static/node_modules/sweetalert/dist/sweetalert.css">-->
     </head>
 
-    <body>
-        
-        <button type="button" class="col-md-offset-1 col-md-4 btn btn-primary" data-toggle="modal" data-target="#specificUserModal">
+    <body class="body">       
+        <nav class="navbar-inverse navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <!--<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    </button>-->
+                    <a class="navbar-brand" style="font-family: 'Bevan';font-size: xx-large;">Castle Of The Lake</a>
+                </div>
+                <!--<div id="navbar" class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a href="#">Home</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>-->
+            </div>
+        </nav>
+
+        </br>
+        </br>
+        </br>
+        </br>
+
+        <button type="button" class="col-md-offset-1 col-md-4 btn btn-info" data-toggle="modal" data-target="#specificUserModal">
             <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
         </button>
 
-        <!--<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#settingsModal"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span></button>
+
+
+        <div id="suspectPercent"></div>
+
+
+        <!--<button type="button" class="btn btn-info" data-toggle="modal" data-target="#settingsModal"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span></button>
 
         <div class="modal fade" id="settingsModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
             <div class="modal-dialog" role="document">
@@ -27,7 +59,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <button type="button" class="btn btn-info">Save changes</button>
                 </div>
             </div>
         </div>-->
@@ -40,9 +72,17 @@
                         <h4 class="modal-title" id="myModalLabel"><b>Search By User</b></h4>
                     </div>
                 <div class="modal-body">
+                       <div id="uIdDiv" class="">
+                            <span>Unique Id: </span>
+                            <span id="uIdSpan">empty</span>
+                        </div>
+                        <div id="nameDiv" class="">
+                            <span>Name: </span>
+                            <span id="nameSpan">empty</span>
+                        </div>
                     </br>
                     <center>
-                        <img class="profilePicture" src="/static/images/abstract-user-flat-4-300px.png" alt="...">
+                        <img src="\static\images\abstract-user-flat-4-300px.png" class="profilePicture" id="profilePicture" alt="...">
                     </center>
                     </br>
                     <div class="input-group">
@@ -57,15 +97,14 @@
                     </br>
                     <div class="input-group">
                         <span class="input-group-addon">
-                            <input type="radio" id="URLRadio" name="radioGroup" aria-label="..." onchange="userIDTypeChanged()">
+                            <input type="radio" id="USERNAMERadio" name="radioGroup" aria-label="..." onchange="userIDTypeChanged()">
                         </span>
-                        <input type="text" id="URLInput" class="form-control" placeholder="URL" disabled>
+                        <input type="text" id="USERNAMEInput" class="form-control" placeholder="USERNAME" disabled>
                         <span class="input-group-btn">
-                            <button class="btn btn-default" type="button" id="URLBtn" disabled onClick="URLLoad()">Load</button>
+                            <button class="btn btn-default" type="button" id="USERNAMEBtn" disabled onClick="USERNAMELoad()">Load</button>
                         </span>
                     </div>
                 </div>
-
 
 
 
@@ -144,7 +183,7 @@
 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Search</button>
+                    <button type="button" class="btn btn-primary" onClick="sendRequest()">Search</button>
                 </div>
             </div>
         </div>-->
@@ -154,8 +193,9 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
         <script src="/static/scripts/js.js"></script>
+        <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>         -->
         <!--<script src="D:/Programming/Projects/HackatonMafat/routing.js"></script>-->
-
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-progressbar/0.9.0/bootstrap-progressbar.min.js"></script>
     </body>
 
 </html>

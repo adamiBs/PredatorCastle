@@ -1,4 +1,14 @@
-.profilePicture{
+.body {
+    background-color: #505050
+}
+
+.profilePicture {
     width: 180px;
     height: 180px;
+}
+
+#suspectPercent {
+  margin: 20px;
+  width: 200px;
+  height: 200px;
 }
