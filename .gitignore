@@ -27,6 +27,7 @@ wheels/
 
 .idea/
 PredatorClient/node_modules/
+PredatorRoutingServer/node_modules/
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
