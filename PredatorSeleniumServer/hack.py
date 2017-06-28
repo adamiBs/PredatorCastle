@@ -29,16 +29,24 @@ def getFriends(usr_id):
     lst_ids = [idd[0:re.search("[0-9]+",idd).end()] for idd in lst_ids]
     return lst_ids
 
-def getMutualFriends(usr_id1, usr_id2):
+def getMutualFriendsCount(usr_id1, usr_id2):
     d.get("https://www.facebook.com/browse/mutual_friends/?uid=" + usr_id1 + "&node=" + usr_id2)
     scrollDown()
     pageSrc = d.page_source
-    lst_ids = [strr[m.start()+15:m.start()+30] for m in list(re.finditer("profile.php",strr))]
+    lst_ids = [pageSrc[m.start()+15:m.start()+30] for m in list(re.finditer("profile.php",pageSrc))]
     return len(lst_ids)
+
+def getMutualFriendsList(usr_id1, usr_id2):
+    d.get("https://www.facebook.com/browse/mutual_friends/?uid=" + usr_id1 + "&node=" + usr_id2)
+    scrollDown()
+    pageSrc = d.page_source
+    lst_ids = [pageSrc[m.start()+15:m.start()+30] for m in list(re.finditer("profile.php",pageSrc))]
+    lst_ids = [idd[0:re.search("[0-9]+",idd).end()] for idd in lst_ids]
+    return lst_ids
 
 #~~~~~~~~~~~~~ Groups Methods
 def getGroupMembers(groupName):
-    d.get("https://www.facebook.com/groups/" + groupURL + '/members')
+    d.get("https://www.facebook.com/groups/" + groupName + '/members')
     
 #~~~~~~~~~~~~~ Common Methods
 def scrollDown():
