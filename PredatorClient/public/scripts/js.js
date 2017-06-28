@@ -45,10 +45,10 @@ app.controller('mainCtrl', ["$scope", "$http", function ($scope, $http) {
         var uId = undefined;
 
         if (document.getElementById("UIDRadio").checked) {
-            uId = document.getElementById("UIDInput").value
+            uId = document.getElementById("UIDInput").value;
         }
         
-        $http.post("http://192.168.1.28:2424/api/data", "Tests").then(function(data) {
+        $http.post("http://192.168.1.28:2424/api/data", {userId: uId}).then(function(data) {
             alert(data);    
         });
     }
