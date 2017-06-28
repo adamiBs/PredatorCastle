@@ -40,10 +40,21 @@
         <button type="button" class="col-md-offset-1 col-md-4 btn btn-info" data-toggle="modal" data-target="#specificUserModal">
             <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
         </button>
+</br>
+        </br>
+        </br>
+        <div>
+            <ul class="nav nav-tabs" role="tablist">
+                  <li ng-repeat="currTab in Tabs" role="presentation" class="active">
+                      <a href="#home" aria-controls="home" role="tab" data-toggle="tab">{{currTab}}</a>
+                  </li>
+            </ul>
 
+            <div class="tab-content">
+                <div ng-repeat="currTab in Tabs" role="tabpanel" class="tab-pane active" id="{{currTab}}">{{currTab}}</div>
+            </div>
+        </div>
 
-
-        <div id="suspectPercent"></div>
 
 
         <!--<button type="button" class="btn btn-info" data-toggle="modal" data-target="#settingsModal"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span></button>
@@ -180,7 +191,7 @@
 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" ng-click="sendRequest()">Search</button>
+                    <button type="button" class="btn btn-primary" ng-click="sendRequest()" data-dismiss="modal">Search</button>
                 </div>
             </div>
         </div>-->

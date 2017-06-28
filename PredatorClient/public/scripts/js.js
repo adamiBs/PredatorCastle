@@ -48,9 +48,56 @@ app.controller('mainCtrl', ["$scope", "$http", function ($scope, $http) {
             uId = document.getElementById("UIDInput").value;
         }
         
-        $http.post("http://192.168.1.28:2424/api/data", {userId: uId}).then(function(data) {
-            alert(data);    
-        });
+        /*$http.post("http://192.168.1.28:2424/api/data", {userId: uId}).then(function(data) {
+            $scope.buildData(data);  
+        });*/
+
+        $scope.buildData($scope.fakeJSON);
+    }
+
+    $scope.fakeJSON = {
+        tab_friends: { 
+            name: "friends",
+            value: {
+                number_of_friends: {
+                    name:"Number of friends",
+                    value:"54"
+                },
+            }},
+        tab_profile: {
+            name: "profile",
+            value: {
+                age: {
+                    name: "Age",
+                    value: "19"
+                },
+                LiveIn: {
+                    name: "Live In",
+                    value: "Kadima"
+                },
+                WorkPlace: {
+                    name: "Work Place",
+                    value: "Facebook"
+                }
+            }
+        }
+    };
+
+
+    // lalalalal
+    $scope.Tabs = [];
+    
+
+    $scope.buildData = function(data){
+        //var data = JSON.parse(data);
+        $scope.getTabsFromJSON(data);
+    }     
+
+    $scope.getTabsFromJSON = function(data){
+       var Keys = Object.keys(data);
+      (Keys).forEach(function(element) {
+          $scope.Tabs.push(data[element].name);
+      }, this);      
     }
 }]);
 
