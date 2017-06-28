@@ -1,6 +1,3 @@
-var ProgressBar = require('progressbar.js')
-
-
 $('#myModal').on('shown.bs.modal', function () {
   $('#myInput').focus()
 })

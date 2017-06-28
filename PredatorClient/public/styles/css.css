@@ -1,4 +1,8 @@
-.profilePicture{
+.body {
+    background-color: #505050
+}
+
+.profilePicture {
     width: 180px;
     height: 180px;
 }
