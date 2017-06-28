@@ -1,4 +1,6 @@
 from BaseHTTPServer import BaseHTTPRequestHandler,HTTPServer
+import json
+from collections import namedtuple
 import profile
 
 
@@ -7,6 +9,8 @@ PORT_NUMBER = 8080
 # This class will handles any incoming request from
 # the browser
 
+def _json_object_hook(d): return namedtuple('X', d.keys())(*d.values())
+def json2obj(data): return json.loads(data, object_hook=_json_object_hook)
 
 class routing(BaseHTTPRequestHandler):
     # Handler for the GET requests
@@ -27,6 +31,19 @@ class routing(BaseHTTPRequestHandler):
         self.send_response(302)
         self.send_header('Location', "/")
         self.end_headers()
+
+        return
+
+    # Handler for the POST requests
+    def do_POST(self):
+        if self.path == "/":
+            data = self.rfile.read(int(self.headers['Content-Length']))
+            self.send_response(200)
+            self.end_headers()
+            data = json2obj(data)
+            print data.username
+            print data.password
+            return
 
         return
 try:
