@@ -7,6 +7,14 @@ from selenium import webdriver
 usr_name = 'aviron@tutanota.com'
 usr_pass = 'Aviron669!@#'
 
+
+def extractIdsFromHtml(d):
+    strr = d.page_source
+    lst_ids = [strr[m.start() + 15:m.start() + 30] for m in list(re.finditer("profile.php", strr))]
+    lst_ids = [idd[0:re.search("id=[0-9]+", idd).end()] for idd in lst_ids]
+    d.close()
+    return lst_ids
+
 def login(username,usr_password):
   d = webdriver.Chrome()
   d.get("https://www.facebook.com")
@@ -23,7 +31,7 @@ def login(username,usr_password):
 def getFriends(usr_id):
     d = login(usr_name,usr_pass)
     d.get("https://m.facebook.com/search/" + usr_id + "/friends")
-    return extractIdsFromHtml(d.page_source, d)
+    return extractIdsFromHtml(d)
 
 
 def getUserPosts(usr_id):
@@ -75,7 +83,7 @@ def getGroupMembers(groupName):
         elm_see_more = d.find_elements(By.PARTIAL_LINK_TEXT,"More")[0]
         elm_see_more.click()
         time.sleep(4)
-    lst_ids = extractIdsFromHtml(d.page_source, d)
+    lst_ids = extractIdsFromHtml(d)
     d.close()
     return lst_ids
 
@@ -93,14 +101,6 @@ def scrollDown(d):
 
 def ConvertDataToFile(data):
     return 1
-    
-    
-def extractIdsFromHtml(html, d):
-    strr = html
-    lst_ids = [strr[m.start() + 15:m.start() + 30] for m in list(re.finditer("profile.php", strr))]
-    lst_ids = [idd[0:re.search("id=[0-9]+", idd).end()] for idd in lst_ids]
-    d.close()
-    return lst_ids
 
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Ideas  
