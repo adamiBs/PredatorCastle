@@ -3,17 +3,11 @@ import re
 from selenium.webdriver.common.by import By
 import time
 from selenium import webdriver
+import datetime
+from datetime import datetime
 
 usr_name = 'aviron@tutanota.com'
 usr_pass = 'Aviron669!@#'
-
-
-def extractIdsFromHtml(d):
-    strr = d.page_source
-    lst_ids = [strr[m.start() + 15:m.start() + 30] for m in list(re.finditer("profile.php", strr))]
-    lst_ids = [idd[0:re.search("id=[0-9]+", idd).end()] for idd in lst_ids]
-    d.close()
-    return lst_ids
 
 def login(username,usr_password):
   d = webdriver.Chrome()
@@ -31,7 +25,7 @@ def login(username,usr_password):
 def getFriends(usr_id):
     d = login(usr_name,usr_pass)
     d.get("https://m.facebook.com/search/" + usr_id + "/friends")
-    return extractIdsFromHtml(d)
+    return extractIdsFromHtml(d.page_source, d)
 
 
 def getUserPosts(usr_id):
@@ -75,6 +69,39 @@ def getMutualFriendsList(usr_id1, usr_id2):
     d.close()
     return lst_ids
 
+#~~~~~~~~~~~~~ User Details Methods
+def getUserWorkPlaceName(usr_id):
+  d = openAboutPage(usr_id)
+  workPlaceElement = d.find_elements_by_xpath("//div[contains(@class, '_6a')]//span[contains(@class, '_50f8')  and contains(@class, '_50f4')]")
+  workplace = d.execute_script("return arguments[0].innerText", workPlaceElement[0])
+  return workplace if ( workplace != "No workplaces to show" ) else "" 
+
+def getUserStudyPlace(usr_id):
+  d = openAboutPage(usr_id)
+  workPlaceElement = d.find_elements_by_xpath("//div[contains(@class, '_6a')]//span[contains(@class, '_50f8')  and contains(@class, '_50f4')]")
+  studyplace = d.execute_script("return arguments[0].innerText", workPlaceElement[1])
+  return workplace if ( workplace != "No schools to show" ) else "" 
+
+# Doesnt work
+def getUserAge(usr_id):
+  d = openAboutPage(usr_id)
+  birthdayElement = d.find_elements_by_xpath("//div[contains(@class, '_4bl9')]//span[contains(@class, '_c24') and contains(@class, '_50f3')]//div")
+  userAge = datetime.strptime(birthdayElement.innetText)
+  return userAge
+
+def getUserHometown(usr_id):
+  d = openAboutPage(usr_id)
+  homeTab = d.find_elements(By.PARTIAL_LINK_TEXT, "Places He's Lived")
+  if ( len(homeTab) == 0 ):
+      homeTab = d.find_elements(By.PARTIAL_LINK_TEXT, "Places She's Lived")
+  homeTab[0].click()
+  time.wait(1)
+  currCity = d.find_elements_by_id('current_city')
+  return "" if ( len(currCity) == 0 ) else d.execute_script("return arguments[0].innerText", currCity[0])
+
+    
+  
+
 #~~~~~~~~~~~~~ Groups Methods
 def getGroupMembers(groupName):
     d = login(usr_name,usr_pass)
@@ -83,7 +110,7 @@ def getGroupMembers(groupName):
         elm_see_more = d.find_elements(By.PARTIAL_LINK_TEXT,"More")[0]
         elm_see_more.click()
         time.sleep(4)
-    lst_ids = extractIdsFromHtml(d)
+    lst_ids = extractIdsFromHtml(d.page_source, d)
     d.close()
     return lst_ids
 
@@ -99,8 +126,21 @@ def scrollDown(d):
         var_cont = ( height != last_height )
         last_height = height
 
+def openAboutPage(usr_id):
+  d = login(usr_name,usr_pass)
+  d.get("https://www.facebook.com/" + usr_id + "/about")
+  return d
+
 def ConvertDataToFile(data):
     return 1
+    
+    
+def extractIdsFromHtml(html, d):
+    strr = html
+    lst_ids = [strr[m.start() + 15:m.start() + 30] for m in list(re.finditer("profile.php", strr))]
+    lst_ids = [idd[0:re.search("id=[0-9]+", idd).end()] for idd in lst_ids]
+    d.close()
+    return lst_ids
 
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Ideas  
