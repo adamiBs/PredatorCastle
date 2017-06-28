@@ -3,7 +3,7 @@ const father = require('./scripts/father');
 const app = express();
 const PORT = 2424;
 
-app.post('/', father.handleRequest);
+app.post('/api/data', father.handleRequest);
 
 //app.use(function (req, res) {
 //    res.send(404);
