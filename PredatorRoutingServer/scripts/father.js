@@ -5,21 +5,19 @@ module.exports = {
         handleRequest: function (req, res) {
             var finalObj = {};
             var scrapingCallbacks = [];
-
-            scrapingCallbacks.push(friends.getAllFriendsById(req.body.userId, function (res) {
-                finalObj.friendData = res;
-            }));
-
+            
 //            scrapingCallbacks.push(friends.getAllFriendsById(req.body.userId, function (res) {
-//                finalObj.likeData = res.data;
+//                finalObj.friendData = res;
 //            }));
+            
+            res.json({"adam": 1});
 
-            async.parallel(scrapingCallbacks, function (err, result) {
-                if (err)
-                    return console.log(err);
-                else if (result) {
-                    res.json(finalObj);
-                }
-            });
+//            async.parallel(scrapingCallbacks, function (err, result) {
+//                if (err)
+//                    return console.log(err);
+//                else if (result) {
+//                    res.json(finalObj);
+//                }
+//            });
         }
 };
