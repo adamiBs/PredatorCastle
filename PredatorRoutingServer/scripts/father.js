@@ -1,4 +1,6 @@
 var friends = require('./friends');
+var logics = require('./logics');
+
 var async = require('async');
 
 module.exports = {
@@ -14,7 +16,7 @@ module.exports = {
                 if (err)
                     return console.log(err);
                 else if (result) {
-                    res.json(finalObj);
+                    res.json(logics.calculateSuspition(finalObj));
                 }
             });
         }
