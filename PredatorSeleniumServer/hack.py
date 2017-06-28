@@ -48,7 +48,8 @@ def getFriendsStatistics(usr_id):
             {
                 "males": 0,
                 "females": 0,
-                "unknown": 0},
+                "unknown": 0
+            },
         "amount": 0,
         "common":
             {
