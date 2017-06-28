@@ -80,7 +80,7 @@ def getUserStudyPlace(usr_id):
   d = openAboutPage(usr_id)
   workPlaceElement = d.find_elements_by_xpath("//div[contains(@class, '_6a')]//span[contains(@class, '_50f8')  and contains(@class, '_50f4')]")
   studyplace = d.execute_script("return arguments[0].innerText", workPlaceElement[1])
-  return workplace if ( workplace != "No schools to show" ) else "" 
+  return studyplace if ( studyplace != "No schools to show" ) else ""
 
 # Doesnt work
 def getUserAge(usr_id):
