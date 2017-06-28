@@ -10,14 +10,14 @@ usr_pass = 'Aviron669!@#'
 def mainn():
   login(usr_name,usr_pass)
 
-def login(username,usr_pass):
+def login(username,usr_password):
   d.get("https://www.facebook.com")
   elm_email = d.find_element_by_id("email")
   elm_pass = d.find_element_by_id("pass")
   elm_login = d.find_element_by_id("loginbutton")
   
-  elm_email.send_keys(usr_name)
-  elm_pass.send_keys(usr_pass)
+  elm_email.send_keys(username)
+  elm_pass.send_keys(usr_password)
   elm_login.click()
 
 #~~~~~~~~~~~~~ User Methods
@@ -37,9 +37,8 @@ def getMutualFriends(usr_id1, usr_id2):
     return len(lst_ids)
 
 #~~~~~~~~~~~~~ Groups Methods
-def openGroupMembersPage(groupURL):
-    d.get(groupURL)
-    d.find
+def getGroupMembers(groupName):
+    d.get("https://www.facebook.com/groups/" + groupURL + '/members')
     
 #~~~~~~~~~~~~~ Common Methods
 def scrollDown():
