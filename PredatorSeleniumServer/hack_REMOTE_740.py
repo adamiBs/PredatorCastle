@@ -4,11 +4,14 @@ from selenium.webdriver.common.by import By
 import time
 from selenium import webdriver
 
+chromedriver = '/usr/local/bin/chromedriver'
+
+
 usr_name = 'aviron@tutanota.com'
 usr_pass = 'Aviron669!@#'
 
 def login(username,usr_password):
-  d = webdriver.Chrome()
+  d = webdriver.Chrome(chromedriver)
   d.get("https://www.facebook.com")
   elm_email = d.find_element_by_id("email")
   elm_pass = d.find_element_by_id("pass")
@@ -44,18 +47,6 @@ def getMutualFriendsCount(usr_id1, usr_id2):
     lst_ids = [pageSrc[m.start()+15:m.start()+30] for m in list(re.finditer("profile.php",pageSrc))]
     d.close()
     return len(lst_ids)
-
-def getUserGroups(usr_id):
-  d = login(usr_name,usr_pass)
-  d.get("https://facebook.com/" + usr_id + "/groups")
-  groupContainers = d.find_elements_by_xpath("//div[contains(@class, 'fwb') and contains(@class, 'mbs')]//a")
-  index = 0
-  groups = []
-  for container in groupContainers:
-    groups.append(groupContainers[index].get_attribute("href")[re.search('/groups/',groupContainers[index].get_attribute("href")).end():])
-    index = index + 1
-  d.close()
-  return groups
 
 def getMutualFriendsList(usr_id1, usr_id2):
     d = login(usr_name,usr_pass)
