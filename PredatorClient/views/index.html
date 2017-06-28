@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="mainApp">
     <head>
         <title>Castle Of The Lake</title>
 
@@ -10,7 +10,7 @@
         <!--<link rel="stylesheet" href="/static/node_modules/sweetalert/dist/sweetalert.css">-->
     </head>
 
-    <body class="body">       
+    <body class="body" ng-controller="mainCtrl">       
         <nav class="navbar-inverse navbar-fixed-top">
             <div class="container">
                 <div class="navbar-header">
@@ -76,11 +76,7 @@
                        <div id="uIdDiv" style="font-family: 'Lalezar'">
                             <span>Unique Id: </span>
                             <span id="uIdSpan">empty</span>
-                        </div>
-                        <div id="nameDiv" style="font-family: 'Lalezar'">
-                            <span>Name: </span>
-                            <span id="nameSpan">empty</span>
-                        </div>
+                        </div>                    
                     </br>
                     <center>
                         <img src="\static\images\abstract-user-flat-4-300px.png" class="profilePicture" id="profilePicture" alt="...">
@@ -92,7 +88,7 @@
                         </span>
                         <input type="text" id="UIDInput" class="form-control" placeholder="UID" autofocus>
                         <span class="input-group-btn">
-                            <button class="btn btn-default" type="button" id="UIDBtn" onClick="UIDLoad()">Load</button>
+                            <button class="btn btn-default" type="button" id="UIDBtn" ng-click="UIDLoad()">Load</button>
                         </span>
                     </div>
                     </br>
@@ -102,7 +98,7 @@
                         </span>
                         <input type="text" id="USERNAMEInput" class="form-control" placeholder="USERNAME" disabled>
                         <span class="input-group-btn">
-                            <button class="btn btn-default" type="button" id="USERNAMEBtn" disabled onClick="USERNAMELoad()">Load</button>
+                            <button class="btn btn-default" type="button" id="USERNAMEBtn" disabled ng-click="USERNAMELoad()">Load</button>
                         </span>
                     </div>
                 </div>
@@ -184,7 +180,7 @@
 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" onClick="sendRequest()">Search</button>
+                    <button type="button" class="btn btn-primary" ng-click="sendRequest()">Search</button>
                 </div>
             </div>
         </div>-->
