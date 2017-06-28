@@ -2,9 +2,8 @@ const express = require('express');
 const app = express();
 const PORT = 2424;
 
-app.post('/', function (req, res) {
-    //res.json({"hello": "world"});
-      res.send('Hello World!')
+app.get('/', function (req, res) {
+    res.json({"hello": "world"});
 });
 
 //app.use(function (req, res) {
