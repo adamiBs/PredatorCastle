@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Castle Of The Lake</title>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <link rel="stylesheet" href="D:/Programming/Projects/HackatonMafat/css.css">
+    </head>
+
+    <body>
+        
+        <button type="button" class="col-md-offset-1 col-md-4 btn btn-primary" data-toggle="modal" data-target="#specificUserModal">
+            <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+        </button>
+
+        <!--<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#settingsModal"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span></button>
+
+        <div class="modal fade" id="settingsModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                        <h4 class="modal-title" id="myModalLabel"><b>Settings</b></h4>
+                    </div>
+                <div class="modal-body">
+            
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>-->
+
+        <div class="modal fade" id="specificUserModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                        <h4 class="modal-title" id="myModalLabel"><b>Search By User</b></h4>
+                    </div>
+                <div class="modal-body">
+                    </br>
+                    <center>
+                        <img src="..." alt="...">
+                    </center>
+                    </br>
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <input type="radio" name="radioGroup" aria-label="...">
+                        </span>
+                        <input type="text" class="form-control" placeholder="UID">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button">Load</button>
+                        </span>
+                    </div>
+                    </br>
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <input type="radio" name="radioGroup" aria-label="...">
+                        </span>
+                        <input type="text" class="form-control" placeholder="URL">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button">Load</button>
+                        </span>
+                    </div>
+                </div>
+
+
+
+
+
+
+                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                    <div class="panel panel-default">
+                        <div class="panel-heading" role="tab" id="headingOne">
+                        <h4 class="panel-title">
+                            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            Groups
+                            </a>
+                        </h4>
+                        </div>
+                        <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                        <div class="panel-body">
+                            Groups
+                        </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading" role="tab" id="headingTwo">
+                        <h4 class="panel-title">
+                            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                            Likes
+                            </a>
+                        </h4>
+                        </div>
+                        <div id="collapseTwo" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingTwo">
+                        <div class="panel-body">
+                            Likes
+                        </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading" role="tab" id="headingThree">
+                        <h4 class="panel-title">
+                            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                            Friends
+                            </a>
+                        </h4>
+                        </div>
+                        <div id="collapseThree" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingThree">
+                        <div class="panel-body">
+                            Friends
+                        </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading" role="tab" id="headingFour">
+                        <h4 class="panel-title">
+                            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                            Profile Data
+                            </a>
+                        </h4>
+                        </div>
+                        <div id="collapseFour" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingFour">
+                        <div class="panel-body">
+                            Profile Data
+                        </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Search</button>
+                </div>
+            </div>
+        </div>-->
+        
+        <!--<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-route.js"></script>-->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+        <script src="D:/Programming/Projects/HackatonMafat/js.js"></script>
+        <!--<script src="D:/Programming/Projects/HackatonMafat/routing.js"></script>-->
+
+    </body>
+
+</html>
