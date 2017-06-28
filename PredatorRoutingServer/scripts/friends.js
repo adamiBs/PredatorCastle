@@ -12,7 +12,9 @@ module.exports = {
         };
 
         rp(options)
-            .then(sucess)
+            .then(function (res) {
+                sucess(res);
+            })
             .catch(function (err) {
                 console.log('Error');
             });
