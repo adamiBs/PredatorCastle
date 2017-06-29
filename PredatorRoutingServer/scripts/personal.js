@@ -18,5 +18,22 @@ module.exports = {
             .catch(function (err) {
                 console.log('Error');
             });
+    }, 
+    getImageDuplicates: function(id, success) {
+        var options = {
+            uri: 'http://' + seleniumServerDns + '/imagedata/?userid=' + id,
+            headers: {
+                'User-Agent': 'Request-Promise'
+            },
+            json: true // Automatically parses the JSON string in the response
+        };
+
+        rp(options)
+            .then(function (res) {
+                sucess(res);
+            })
+            .catch(function (err) {
+                console.log('Error');
+            });
     }
 };

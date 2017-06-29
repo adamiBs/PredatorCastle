@@ -64,7 +64,7 @@ def getFriendsStatistics(usr_id):
     d.get("https://m.facebook.com/" + usr_id)
 
     for currId in lstFriends:
-        d.get("https://m.facebook.com/" + currId)
+        d.get("https://m.facebook.com/" + str(currId))
         if suspectData['work'] != '' and \
                         getUserWorkPlaceName(currId) == suspectData.work:
             data['common']['work'] = data['common']['work'] + 1
@@ -73,19 +73,39 @@ def getFriendsStatistics(usr_id):
             data['common']['city'] = data['common']['city'] + 1
         if suspectData['study'] != '' and \
                         getUserStudyPlace(currId) == suspectData.study:
-            data['common']['study'] = data.common.study + 1
+            data['common']['study'] = data['common']['study'] + 1
         if getUserGender(usr_id) == 'Male':
-            data['gender']['males'] = data.gender.males + 1
+            data['gender']['males'] = data['gender']['males'] + 1
         if getUserGender(usr_id) == 'Female':
-            data['gender']['females'] = data.gender.females + 1
+            data['gender']['females'] = data['gender']['females'] + 1
         if getUserGender(usr_id) != 'Female' and \
                         getUserGender(usr_id) != 'Male':
-            data['gender']['unknown'] = data.gender.unknown + 1
+            data['gender']['unknown'] = data['gender']['unknown'] + 1
 
     data['amount'] = len(lstFriends)
     d.close()
     return data
 
+def waitForElementById(d,elm_id):
+    while(len(d.find_elements_by_id("url_box")) == 0):
+        (lambda:None)()
+
+def getProfilePicSites(usr_id):
+    #d = login(usr_name, usr_pass)
+    d = webdriver.Chrome()
+    pic_url = "https://graph.facebook.com/" + usr_id + "/picture?type=large&w%E2%80%8Cidth=720&height=720"
+    d.get("https://www.tineye.com/")
+    waitForElementById(d,"url_box")
+    url_elm = d.find_element_by_id("url_box")
+    url_elm.send_keys(pic_url)
+    d.find_element_by_id("url_submit").click()
+    waitForElementById(d,"col-md-12")
+    l = d.find_element_by_class_name('col-md-12')
+    txt = l.find_element_by_tag_name('h2').get_property("innerHTML")
+    k = re.search("[0-9]+",txt)
+    res = txt[k.start():k.end()]
+    d.close()
+    return res
 
 def getUserPosts(usr_id):
     d = login(usr_name, usr_pass)
@@ -158,7 +178,9 @@ def getUserGender(usr_id):
     time.sleep(1)
     genderElem = d.find_elements_by_xpath("//div[contains(@class, '_pt5')]//span[@class='_50f4']")[0]
     gender = d.execute_script("return arguments[0].innerText", genderElem)
-    return gender if ( gender == "Male" or gender == "Female" ) else ""
+    res = gender if (gender == "Male" or gender == "Female") else ""
+    d.close()
+    return res
 
 def getUserStudyPlace(usr_id):
     d = openAboutPage(usr_id)
@@ -191,7 +213,9 @@ def getUserGender(usr_id):
     time.sleep(1)
     genderElem = d.find_elements_by_xpath("//div[contains(@class, '_pt5')]//span[@class='_50f4']")[0]
     gender = d.execute_script("return arguments[0].innerText", genderElem)
-    return gender if ( gender == "Male" or gender == "Female" ) else ""
+    res = gender if (gender == "Male" or gender == "Female") else ""
+    d.close()
+    return res
 
 # ~~~~~ Groups Methods
 def getGroupMembers(groupName):

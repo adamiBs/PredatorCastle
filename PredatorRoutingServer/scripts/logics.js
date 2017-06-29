@@ -48,6 +48,10 @@ module.exports = {
             tab_profile: {
                 name: "profile",
                 fields: {
+                    profileDuplicates: {
+                        name: "Number of profile picture duplicates",
+                        value: profile.imageData.netDuplicates.toString()
+                    },
                     LiveIn: {
                         name: "Lives in",
                         value: profile.personalData.city === 0 ? EMPTY_FIELD : profile.personalData.city.toString()

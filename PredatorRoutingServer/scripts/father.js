@@ -29,6 +29,11 @@ module.exports = {
             finalObj.personalData = res;
             complete(result, finalObj);
         });
+        
+        personal.getPersonalDataById(req.body.userId, function (res) {
+            finalObj.imageData = res;
+            complete(result, finalObj);
+        });
     }
 
 };
