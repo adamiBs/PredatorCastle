@@ -3,10 +3,10 @@ module.exports = {
         var statisticsJSON = {
             tab_friends: {
                 name: "friends",
-                value: {
+                fields: {
                     number_of_friends: {
                         name: "Number of friends",
-                        value: {
+                        fields: {
                             number_of_males: {
                                 name: "Number of male friends",
                                 value: profile.friendData.gender.males
@@ -16,7 +16,7 @@ module.exports = {
                                 value: profile.friendData.gender.females
                             }, 
                             number_of_unknown: {
-                                name: "Number of unknown friends",
+                                name: "Number of unknown gender friends",
                                 value: profile.friendData.gender.unknown
                             }, 
                             total: {
@@ -27,7 +27,7 @@ module.exports = {
                     },
                     common_values: {
                         name: "Common values with friends",
-                        value: {
+                        fields: {
                             number_same_work: {
                                 name: "Number of friends with same work", 
                                 value: profile.friendData.common.work
@@ -46,7 +46,7 @@ module.exports = {
             },
             tab_profile: {
                 name: "profile",
-                value: {
+                fields: {
                     age: {
                         name: "Age",
                         value: "19"
@@ -62,6 +62,6 @@ module.exports = {
                 }
             }
         };
-        return (profile);
+        return (statisticsJSON);
     }
 };
