@@ -74,13 +74,6 @@ def getFriendsStatistics(usr_id):
         if suspectData['study'] != '' and \
                         getUserStudyPlace(currId) == suspectData.study:
             data['common']['study'] = data['common']['study'] + 1
-        if getUserGender(usr_id) == 'Male':
-            data['gender']['males'] = data['gender']['males'] + 1
-        if getUserGender(usr_id) == 'Female':
-            data['gender']['females'] = data['gender']['females'] + 1
-        if getUserGender(usr_id) != 'Female' and \
-                        getUserGender(usr_id) != 'Male':
-            data['gender']['unknown'] = data['gender']['unknown'] + 1
 
     data['amount'] = len(lstFriends)
     d.close()
