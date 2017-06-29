@@ -58,7 +58,7 @@ app.controller('mainCtrl', ["$scope", "$http", function ($scope, $http) {
     $scope.fakeJSON = {
         tab_friends: { 
             name: "friends",
-            value: {
+            fields: {
                 number_of_friends: {
                     name:"Number of friends",
                     value:"54"
@@ -66,10 +66,10 @@ app.controller('mainCtrl', ["$scope", "$http", function ($scope, $http) {
             }},
         tab_profile: {
             name: "profile",
-            value: {
+            fields: {
                 age: {
                     name: "Age",
-                    value: "19"
+                    value: "1"
                 },
                 LiveIn: {
                     name: "Live In",
@@ -78,6 +78,33 @@ app.controller('mainCtrl', ["$scope", "$http", function ($scope, $http) {
                 WorkPlace: {
                     name: "Work Place",
                     value: "Facebook"
+                },
+                GodDamnItKyle: {
+                    name: "Killers",
+                    fields: {
+                        someField:{
+                        name:"kill me",
+                        value:"killed."
+                        }
+                    }
+                },
+                 GodDamnItKyle2: {
+                    name: "Killers2",
+                    fields: {
+                        badfield:{
+                            name:"kill me",
+                            fields:{
+                                someField:{
+                                    name:"kill me",
+                                    value:"killed."                                
+                                }
+                            }
+                        },
+                        secondbadfield:{
+                            name:"lala",
+                            value:"Unger we made it"
+                        }
+                    }
                 }
             }
         }
@@ -86,18 +113,25 @@ app.controller('mainCtrl', ["$scope", "$http", function ($scope, $http) {
 
     // lalalalal
     $scope.Tabs = [];
+    $scope.SubTabs = [];
     
 
     $scope.buildData = function(data){
         //var data = JSON.parse(data);
-        $scope.getTabsFromJSON(data);
+        $scope.Tabs = data;
     }     
 
-    $scope.getTabsFromJSON = function(data){
-       var Keys = Object.keys(data);
-      (Keys).forEach(function(element) {
-          $scope.Tabs.push(data[element].name);
-      }, this);      
+    $scope.TabSelected = function(p_tabId){
+        $scope.SubTabs = JSON.parse(document.getElementById(p_tabId + "Value").innerHTML);
+    }
+
+    $scope.UnfoldAllLi = function(p_UlId,x){
+        if(x){
+            var parent = document.getElementById(p_UlId + "UL").parentElement;
+            var UL = parent.children[1];
+            UL.innerHTML = "";
+        }
+        return !x;
     }
 }]);
 
