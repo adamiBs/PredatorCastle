@@ -292,4 +292,4 @@ def extractGroupsFromHtml(html):
 # adami = getFriendsStatistics("100008258685419")
 # #adami = getFriends("100008258685419")
 
-print getFriends("100008258685419")
+#print getFriends("100008258685419")
