@@ -12,24 +12,30 @@
 
     <body class="body" ng-controller="mainCtrl">       
         <nav class="navbar-inverse navbar-fixed-top">
-            <div class="container">
-                <div class="navbar-header">
-                    <!--<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    </button>-->
-                    <a class="navbar-brand" style="font-family: 'Bevan';font-size: xx-large;">Castle Of The Lake</a>
+            <center>
+                <div class="container">
+                    <center>
+                        <div class="navbar-brand" style="font-family: 'Bevan';font-size: large;">
+                            <!--<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            </button>-->
+                            <center style="position:absolute; right:40%; left:40%;">
+                            Castle Of The Lake
+                            </center>
+                        </div>
+                    </center>
+                    <!--<div id="navbar" class="collapse navbar-collapse">
+                        <ul class="nav navbar-nav">
+                            <li class="active"><a href="#">Home</a></li>
+                            <li><a href="#about">About</a></li>
+                            <li><a href="#contact">Contact</a></li>
+                        </ul>
+                    </div>-->
                 </div>
-                <!--<div id="navbar" class="collapse navbar-collapse">
-                    <ul class="nav navbar-nav">
-                        <li class="active"><a href="#">Home</a></li>
-                        <li><a href="#about">About</a></li>
-                        <li><a href="#contact">Contact</a></li>
-                    </ul>
-                </div>-->
-            </div>
+            </center>
         </nav>
 
         </br>
@@ -55,10 +61,12 @@
         </script>
 
          <script type="text/ng-template" id="field_openOneLevel.html">
-             <span ng-init="x = false" ng-click="x = UnfoldAllLi(field.name,x);" id={{field.name}}UL>{{field.name}}</span>
-             <span role="tabpanel" style="fo; color:#2196F3; font-family:'Lalezar'" id={{field.name}} ng-if="field.value">{{field.value}}</span>
+             <span ng-init="x = false" ng-click="x = UnfoldAllLi(field.name,x);" id={{field.name}}UL style="color:dark; font-family:'Lalezar'">{{field.name}}</span>
+             <span role="tabpanel" style="fo; color:#2196F3; font-family:'Lalezar'" id={{field.name}} ng-if="field.value" >
+                 <span>{{field.value}}</span>
+             </span>
              <ul ng-if="x">                
-                    <li ng-repeat="field in field.fields" ng-include="'field_openOneLevel.html'"></li>
+                    <li ng-repeat="field in field.fields" ng-include="'field_openOneLevel.html'" class="list-group-item"></li>
              </ul>                
              </span> 
         </script>
@@ -74,8 +82,8 @@
             <ul>
             <!--<li ng-repeat="field in SubTabs" ng-include="'field_renderer.html'"></li>-->
             </ul>
-            <ul>
-            <li ng-repeat="field in SubTabs" ng-include="'field_openOneLevel.html'"></li>
+            <ul class="list-group">
+            <li ng-repeat="field in SubTabs" ng-include="'field_openOneLevel.html'" class="list-group-item"></li>
             </ul>
             
 
@@ -222,7 +230,7 @@
 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" ng-click="sendRequest()" data-dismiss="modal">Search</button>
+                    <button type="button" class="btn btn-primary" ng-click="sendRequest()" data-dismiss="modal" ng-disabled="requestSent">Search</button>
                 </div>
             </div>
         </div>-->
@@ -231,6 +239,7 @@
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-route.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+        <script src="/static/scripts/js/circlechart.js"></script>
         <script src="/static/scripts/js.js"></script>
         <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>         -->
         <!--<script src="D:/Programming/Projects/HackatonMafat/routing.js"></script>-->
