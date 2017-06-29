@@ -11,7 +11,11 @@ usr_pass = 'Aviron669!@#'
 
 
 def login(username, usr_password):
-    d = webdriver.Chrome()
+    chrome_options = webdriver.ChromeOptions()
+    prefs = {"profile.default_content_setting_values.notifications" : 2}
+    chrome_options.add_experimental_option("prefs",prefs)
+    d = webdriver.Chrome(chrome_options=chrome_options)
+    
     d.get("https://www.facebook.com")
     elm_email = d.find_element_by_id("email")
     elm_pass = d.find_element_by_id("pass")
@@ -26,10 +30,9 @@ def login(username, usr_password):
 # ~~~~~ User Methods
 def getFriends(usr_id):
     d = login(usr_name, usr_pass)
-    d.get("https://m.facebook.com/search/" + usr_id + "/friends")
-    d.close()
-    return extractIdsFromHtml(d)
-
+    d.get("https://facebook.com/search/" + usr_id + "/friends")
+    scrollDown(d)
+    return extractIdsFromHtml(d.page_source, d)
 
 def getFriendsStatistics(usr_id):
     suspectData = {
@@ -141,14 +144,28 @@ def getUserStudyPlace(usr_id):
 
 def getUserHometown(usr_id):
     d = openAboutPage(usr_id)
+    d.execute_script("window.scrollTo(0,100)")
+    time.sleep(1.5)
     homeTab = d.find_elements(By.PARTIAL_LINK_TEXT, "Places He's Lived")
     if (len(homeTab) == 0):
         homeTab = d.find_elements(By.PARTIAL_LINK_TEXT, "Places She's Lived")
+    time.sleep(1)
     homeTab[0].click()
-    time.wait(1)
+    time.sleep(1)
     currCity = d.find_elements_by_id('current_city')
-    return "" if (len(currCity) == 0) else d.execute_script("return arguments[0].innerText", currCity[0])
+    return "" if (len(currCity) == 0) else d.execute_script("return arguments[0].innerText", currCity[0]).split('\n')[1]
 
+def getUserGender(usr_id):
+    d = openAboutPage(usr_id)
+    detailsTab = d.find_elements(By.PARTIAL_LINK_TEXT, "Contact and Basic Info")
+    time.sleep(1)
+    detailsTab[0].click()
+    time.sleep(1)
+    genderElem = d.find_elements_by_xpath("//div[contains(@class, '_pt5')]//span[@class='_50f4']")[0]
+    gender = d.execute_script("return arguments[0].innerText", genderElem)
+    return gender if ( gender == "Male" or gender == "Female" ) else ""
+    
+    
 
 # ~~~~~ Groups Methods
 def getGroupMembers(groupName):
@@ -157,7 +174,7 @@ def getGroupMembers(groupName):
     while (d.page_source.find("See More") > 0):
         elm_see_more = d.find_elements(By.PARTIAL_LINK_TEXT, "More")[0]
         elm_see_more.click()
-        time.sleep(4)
+        time.sleep(4) 
     lst_ids = extractIdsFromHtml(d.page_source, d)
     d.close()
     return lst_ids
@@ -185,12 +202,15 @@ def ConvertDataToFile(data):
     return 1
 
 
-def extractIdsFromHtml(html, d):
+def extractIdsFromHtml(html, d): 
     strr = html
-    lst_ids = [strr[m.start() + 15:m.start() + 30] for m in list(re.finditer("profile.php", strr))]
-    lst_ids = [idd[0:re.search("id=[0-9]+", idd).end()] for idd in lst_ids]
-    d.close()
-    return lst_ids
+    if strr.find("profile.php") == 0:
+        lst_ids = [strr[m.start( ) + 4:m.start( ) + 19] for m in list(re.finditer('"id":', strr))]
+        lst_ids = lst_ids[:-2]
+    else:
+        lst_ids = [strr[m.start() + 10:m.start() + 30] for m in list(re.finditer("profile.php", strr))]
+        lst_ids = [idd[re.search("=[0-9]+", idd).start()+1:re.search("=[0-9]+", idd).end()] for idd in lst_ids]
+    return (d,lst_ids)
 
 
 # ~~~~~~~~~~~ Ideas
@@ -204,11 +224,6 @@ def getFriendsListForUser(usr_id):
 
 def getMutualFriends(usr_id):
     return 1
-
-
-def extractIdsFromHtml(html):
-    return 1
-
 
 def extractGroupsFromHtml(html):
     return 1
