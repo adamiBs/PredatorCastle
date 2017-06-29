@@ -259,7 +259,7 @@ def extractIdsFromHtml(html, d):
     else:
         lst_ids = [strr[m.start() + 10:m.start() + 30] for m in list(re.finditer("profile.php", strr))]
         lst_ids = [idd[re.search("=[0-9]+", idd).start()+1:re.search("=[0-9]+", idd).end()] for idd in lst_ids]
-    return (d,lst_ids)
+    return lst_ids
 
 # ~~~~~~~~~~~ Ideas
 def extractUserIdsFromUrl(url):
