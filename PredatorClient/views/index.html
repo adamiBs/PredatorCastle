@@ -36,31 +36,62 @@
         </br>
         </br>
         </br>
-
-        <button type="button" class="col-md-offset-1 col-md-4 btn btn-info" data-toggle="modal" data-target="#specificUserModal">
+        <button type="button" class="col-md-offset-4 col-md-4 btn btn-info" data-toggle="modal" data-target="#specificUserModal">
             <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
         </button>
-</br>
         </br>
         </br>
-        <div>
+        </br>
+
+
+        <script type="text/ng-template" id="field_renderer.html">
+             {{field.name}}                            
+             <ul ng-if="field.fields">
+               <li ng-repeat="field in field.fields" 
+                   ng-include="'field_renderer.html'">                                      
+               </li>
+                </ul>
+                <span role="tabpanel" style="fo; color:#2196F3; font-family:'Lalezar'" id={{field.name}}>{{field.value}}</span>
+        </script>
+
+         <script type="text/ng-template" id="field_openOneLevel.html">
+             <span ng-init="x = false" ng-click="x = UnfoldAllLi(field.name,x);" id={{field.name}}UL>{{field.name}}</span>
+             <span role="tabpanel" style="fo; color:#2196F3; font-family:'Lalezar'" id={{field.name}} ng-if="field.value">{{field.value}}</span>
+             <ul ng-if="x">                
+                    <li ng-repeat="field in field.fields" ng-include="'field_openOneLevel.html'"></li>
+             </ul>                
+             </span> 
+        </script>
+
+        <div class="col-md-offset-2 col-md-8">
             <ul class="nav nav-tabs" role="tablist">
-                  <li ng-repeat="currTab in Tabs" role="presentation" class="active">
-                      <a href="#home" aria-controls="home" role="tab" data-toggle="tab">{{currTab}}</a>
+                  <li ng-repeat="currTab in Tabs" role="presentation" class="active" id={{currTab.name}}>
+                      <a href="#"{{currTab.name}} aria-controls="home" role="tab" data-toggle="tab" ng-click="TabSelected(currTab.name)">{{currTab.name}}</a>
+                      <span style="display:none" id={{currTab.name}}Value>{{currTab.fields}}</span>
                   </li>
             </ul>
+            <br/>
+            <ul>
+            <!--<li ng-repeat="field in SubTabs" ng-include="'field_renderer.html'"></li>-->
+            </ul>
+            <ul>
+            <li ng-repeat="field in SubTabs" ng-include="'field_openOneLevel.html'"></li>
+            </ul>
+            
 
-            <div class="tab-content">
-                <div ng-repeat="currTab in Tabs" role="tabpanel" class="tab-pane active" id="{{currTab}}">{{currTab}}</div>
-            </div>
-        </div>
+            <!--<div class="tab-content" ng-repeat="currSubTab in SubTabs">
+                </br>                    
+                span role="tabpanel" style="fo; color:#2196F3; font-family:'Lalezar'" id={{currSubTab.name}}>{{currSubTab.name}}: </span>
+                <span role="tabpanel" style="fo; color:#2196F3; font-family:'Lalezar'" id={{currSubTab.name}}>{{currSubTab.value}}</span>                
+            </div>-->
+        </div>       
 
 
 
         <!--<button type="button" class="btn btn-info" data-toggle="modal" data-target="#settingsModal"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span></button>
 
         <div class="modal fade" id="settingsModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-            <div class="modal-dialog" role="document">
+            <div class="modal-dialog" role="document">.
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
