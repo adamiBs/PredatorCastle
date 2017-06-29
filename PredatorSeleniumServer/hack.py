@@ -12,10 +12,9 @@ usr_pass = 'Aviron669!@#'
 
 def login(username, usr_password):
     chrome_options = webdriver.ChromeOptions()
-    prefs = {"profile.default_content_setting_values.notifications": 2}
-    chrome_options.add_experimental_option("prefs", prefs)
+    prefs = {"profile.default_content_setting_values.notifications" : 2}
+    chrome_options.add_experimental_option("prefs",prefs)
     d = webdriver.Chrome(chrome_options=chrome_options)
-
     d.get("https://www.facebook.com")
     elm_email = d.find_element_by_id("email")
     elm_pass = d.find_element_by_id("pass")
@@ -30,18 +29,9 @@ def login(username, usr_password):
 # ~~~~~ User Methods
 def getFriends(usr_id):
     d = login(usr_name, usr_pass)
-    d.get("https://www.facebook.com/search/" + usr_id + "/friends")
+    d.get("https://facebook.com/search/" + usr_id + "/friends")
     scrollDown(d)
-    lst = []
-    d.close()
-    return lst
-
-def extractIdsFromHtml(html, d):
-    strr = html
-    lst_ids = [strr[m.start() + 15:m.start() + 30] for m in list(re.finditer("profile.php", strr))]
-    lst_ids = [idd[0:re.search("id=[0-9]+", idd).end()] for idd in lst_ids]
-    d.close()
-    return lst_ids
+    return extractIdsFromHtml(d.page_source, d)
 
 def getFriendsStatistics(usr_id):
     suspectData = {
@@ -75,15 +65,22 @@ def getFriendsStatistics(usr_id):
 
     for currId in lstFriends:
         d.get("https://m.facebook.com/" + currId)
-        if suspectData.work != '' and \
+        if suspectData['work'] != '' and \
                         getUserWorkPlaceName(currId) == suspectData.work:
-            data.common.work = data.common.work + 1
-        if suspectData.city != '' and \
+            data['common']['work'] = data['common']['work'] + 1
+        if suspectData['city'] != '' and \
                         getUserHometown(currId) == suspectData.city:
-            data.common.city = data.common.city + 1
-        if suspectData.study != '' and \
+            data['common']['city'] = data['common']['city'] + 1
+        if suspectData['study'] != '' and \
                         getUserStudyPlace(currId) == suspectData.study:
-            data.common.study = data.common.study + 1
+            data['common']['study'] = data.common.study + 1
+        if getUserGender(usr_id) == 'Male':
+            data['gender']['males'] = data.gender.males + 1
+        if getUserGender(usr_id) == 'Female':
+            data['gender']['females'] = data.gender.females + 1
+        if getUserGender(usr_id) != 'Female' and \
+                        getUserGender(usr_id) != 'Male':
+            data['gender']['unknown'] = data.gender.unknown + 1
 
     data['amount'] = len(lstFriends)
     d.close()
@@ -186,6 +183,16 @@ def getUserHometown(usr_id):
     d.close()
     return res
 
+def getUserGender(usr_id):
+    d = openAboutPage(usr_id)
+    detailsTab = d.find_elements(By.PARTIAL_LINK_TEXT, "Contact and Basic Info")
+    time.sleep(1)
+    detailsTab[0].click()
+    time.sleep(1)
+    genderElem = d.find_elements_by_xpath("//div[contains(@class, '_pt5')]//span[@class='_50f4']")[0]
+    gender = d.execute_script("return arguments[0].innerText", genderElem)
+    return gender if ( gender == "Male" or gender == "Female" ) else ""
+
 # ~~~~~ Groups Methods
 def getGroupMembers(groupName):
     d = login(usr_name, usr_pass)
@@ -193,7 +200,7 @@ def getGroupMembers(groupName):
     while (d.page_source.find("See More") > 0):
         elm_see_more = d.find_elements(By.PARTIAL_LINK_TEXT, "More")[0]
         elm_see_more.click()
-        time.sleep(4)
+        time.sleep(4) 
     lst_ids = extractIdsFromHtml(d.page_source, d)
     d.close()
     return lst_ids
@@ -219,6 +226,16 @@ def openAboutPage(usr_id):
 
 def ConvertDataToFile(data):
     return 1
+
+def extractIdsFromHtml(html, d): 
+    strr = html
+    if strr.find("profile.php") == 0:
+        lst_ids = [strr[m.start( ) + 4:m.start( ) + 19] for m in list(re.finditer('"id":', strr))]
+        lst_ids = lst_ids[:-2]
+    else:
+        lst_ids = [strr[m.start() + 10:m.start() + 30] for m in list(re.finditer("profile.php", strr))]
+        lst_ids = [idd[re.search("=[0-9]+", idd).start()+1:re.search("=[0-9]+", idd).end()] for idd in lst_ids]
+    return (d,lst_ids)
 
 # ~~~~~~~~~~~ Ideas
 def extractUserIdsFromUrl(url):
