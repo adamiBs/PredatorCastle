@@ -12,7 +12,13 @@ app.controller('mainCtrl', ["$scope", "$http", function ($scope, $http) {
     }
 
     $scope.USERNAMELoad = function() {
-        alert("Not yet implemented")
+        var input = document.getElementById("USERNAMEInput").value;
+        if(input == "i need some sleep"){
+            $scope.getUserProfileData(100011274758602);
+        }
+        else{
+            alert("Not yet implemented")
+        }
     }
 
     $scope.getUserProfileData = function(p_uID) {    
@@ -47,13 +53,28 @@ app.controller('mainCtrl', ["$scope", "$http", function ($scope, $http) {
         if (document.getElementById("UIDRadio").checked) {
             uId = document.getElementById("UIDInput").value;
         }
-        
-        /*$http.post("http://192.168.1.28:2424/api/data", {userId: uId}).then(function(data) {
-            $scope.buildData(data);  
-        });*/
 
-        $scope.buildData($scope.fakeJSON);
+        if(!$scope.requestSent){
+            $scope.requestSent = true;            
+            $http.post("http://192.168.1.28:2424/api/data", {userId: uId}).then(function(data) {
+                $scope.requestSent = false;
+                if(data != undefined){
+                    alert("your request has been successfully processed")            
+                    $scope.buildData(data);
+                }  
+                else
+                    alert("your request failed")
+            });
+            alert("Your request has been sent");
+        }
+        else{
+            alert("another proccess is in process. PLEASE WAIT!");
+        }
+
+        //$scope.buildData($scope.fakeJSON);
     }
+
+    $scope.requestSent = false;
 
     $scope.fakeJSON = {
         tab_friends: { 
@@ -118,7 +139,7 @@ app.controller('mainCtrl', ["$scope", "$http", function ($scope, $http) {
 
     $scope.buildData = function(data){
         //var data = JSON.parse(data);
-        $scope.Tabs = data;
+        $scope.Tabs = data.data;
     }     
 
     $scope.TabSelected = function(p_tabId){
