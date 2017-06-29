@@ -1,5 +1,6 @@
 module.exports = {
     calculateSuspition: function (profile) {
+        var EMPTY_FIELD = 'Empty Field'
         var statisticsJSON = {
             tab_friends: {
                 name: "friends",
@@ -9,19 +10,19 @@ module.exports = {
                         fields: {
                             number_of_males: {
                                 name: "Number of male friends",
-                                value: profile.friendData.gender.males
+                                value: profile.friendData.gender.males === 0 ? EMPTY_FIELD : profile.friendData.gender.males.toString()
                             }, 
                             number_of_males: {
                                 name: "Number of female friends",
-                                value: profile.friendData.gender.females
+                                value: profile.friendData.gender.females === 0 ? EMPTY_FIELD : profile.friendData.gender.females.toString()
                             }, 
                             number_of_unknown: {
                                 name: "Number of unknown gender friends",
-                                value: profile.friendData.gender.unknown
+                                value: profile.friendData.gender.unknown === 0 ? EMPTY_FIELD : profile.friendData.gender.unknown.toString()
                             }, 
                             total: {
                                 name: "Total number of friends",
-                                value: profile.friendData.amount
+                                value: profile.friendData.amount === 0 ? EMPTY_FIELD : profile.friendData.amount.toString()
                             }
                         }
                     },
@@ -30,15 +31,15 @@ module.exports = {
                         fields: {
                             number_same_work: {
                                 name: "Number of friends with same work", 
-                                value: profile.friendData.common.work
+                                value: profile.friendData.common.work === 0 ? EMPTY_FIELD : profile.friendData.common.work.toString()
                             },
                             number_same_city: {
                                 name: "Number of friends with same home city", 
-                                value: profile.friendData.common.city
+                                value: profile.friendData.common.city === 0 ? EMPTY_FIELD : profile.friendData.common.city.toString()
                             },
                             number_same_study: {
                                 name: "Number of friends with same study", 
-                                value: profile.friendData.common.study
+                                value: profile.friendData.common.study === 0 ? EMPTY_FIELD : profile.friendData.common.study.toString()
                             }
                         }
                     }
@@ -47,17 +48,17 @@ module.exports = {
             tab_profile: {
                 name: "profile",
                 fields: {
-                    age: {
-                        name: "Age",
-                        value: "19"
-                    },
                     LiveIn: {
-                        name: "Live In",
-                        value: "Kadima"
+                        name: "Lives in",
+                        value: profile.personalData.city === 0 ? EMPTY_FIELD : profile.personalData.city.toString()
                     },
                     WorkPlace: {
-                        name: "Work Place",
-                        value: "Facebook"
+                        name: "Works at",
+                        value: profile.personalData.work === 0 ? EMPTY_FIELD : profile.personalData.work.toString()
+                    },
+                    StudyPlace: {
+                        name: "Studies at",
+                        value: profile.personalData.study === 0 ? EMPTY_FIELD : profile.personalData.study.toString()
                     }
                 }
             }

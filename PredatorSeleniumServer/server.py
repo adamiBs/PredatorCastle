@@ -27,6 +27,10 @@ class routing(BaseHTTPRequestHandler):
             profile.getFriends(self)
             return
 
+        if self.path.split('/')[1] == "personal":
+            profile.getPersonal(self)
+            return
+
         # Redirect on invalid path
         self.send_response(302)
         self.send_header('Location', "/")

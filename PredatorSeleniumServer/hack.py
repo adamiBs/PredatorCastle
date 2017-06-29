@@ -11,7 +11,11 @@ usr_pass = 'Aviron669!@#'
 
 
 def login(username, usr_password):
-    d = webdriver.Chrome()
+    chrome_options = webdriver.ChromeOptions()
+    prefs = {"profile.default_content_setting_values.notifications": 2}
+    chrome_options.add_experimental_option("prefs", prefs)
+    d = webdriver.Chrome(chrome_options=chrome_options)
+
     d.get("https://www.facebook.com")
     elm_email = d.find_element_by_id("email")
     elm_pass = d.find_element_by_id("pass")
@@ -26,10 +30,18 @@ def login(username, usr_password):
 # ~~~~~ User Methods
 def getFriends(usr_id):
     d = login(usr_name, usr_pass)
-    d.get("https://m.facebook.com/search/" + usr_id + "/friends")
+    d.get("https://www.facebook.com/search/" + usr_id + "/friends")
+    scrollDown(d)
+    lst = []
     d.close()
-    return extractIdsFromHtml(d)
+    return lst
 
+def extractIdsFromHtml(html, d):
+    strr = html
+    lst_ids = [strr[m.start() + 15:m.start() + 30] for m in list(re.finditer("profile.php", strr))]
+    lst_ids = [idd[0:re.search("id=[0-9]+", idd).end()] for idd in lst_ids]
+    d.close()
+    return lst_ids
 
 def getFriendsStatistics(usr_id):
     suspectData = {
@@ -53,12 +65,13 @@ def getFriendsStatistics(usr_id):
             }
     }
     lstFriends = getFriends(usr_id)
-    d = login(usr_name, usr_pass)
 
+    suspectData['work'] = getUserWorkPlaceName(usr_id)
+    suspectData['city'] = getUserHometown(usr_id)
+    suspectData['study'] = getUserStudyPlace(usr_id)
+
+    d = login(usr_name, usr_pass)
     d.get("https://m.facebook.com/" + usr_id)
-    suspectData.work = getUserWorkPlaceName(usr_id)
-    suspectData.city = getUserHometown(usr_id)
-    suspectData.study = getUserStudyPlace(usr_id)
 
     for currId in lstFriends:
         d.get("https://m.facebook.com/" + currId)
@@ -72,7 +85,7 @@ def getFriendsStatistics(usr_id):
                         getUserStudyPlace(currId) == suspectData.study:
             data.common.study = data.common.study + 1
 
-    data.amount = len(lstFriends)
+    data['amount'] = len(lstFriends)
     d.close()
     return data
 
@@ -123,32 +136,55 @@ def getMutualFriendsList(usr_id1, usr_id2):
 
 
 # ~~~~~ User Details Methods
+def getPersonalData(usr_id):
+    data = {
+        "work": getUserWorkPlaceName(usr_id),
+        "city": getUserHometown(usr_id),
+        "study": getUserStudyPlace(usr_id)
+    }
+
+    return data
+
 def getUserWorkPlaceName(usr_id):
     d = openAboutPage(usr_id)
     workPlaceElement = d.find_elements_by_xpath(
         "//div[contains(@class, '_6a')]//span[contains(@class, '_50f8')  and contains(@class, '_50f4')]")
     workplace = d.execute_script("return arguments[0].innerText", workPlaceElement[0])
+    d.close()
     return workplace if (workplace != "No workplaces to show") else ""
 
+def getUserGender(usr_id):
+    d = openAboutPage(usr_id)
+    detailsTab = d.find_elements(By.PARTIAL_LINK_TEXT, "Contact and Basic Info")
+    time.sleep(1)
+    detailsTab[0].click()
+    time.sleep(1)
+    genderElem = d.find_elements_by_xpath("//div[contains(@class, '_pt5')]//span[@class='_50f4']")[0]
+    gender = d.execute_script("return arguments[0].innerText", genderElem)
+    return gender if ( gender == "Male" or gender == "Female" ) else ""
 
 def getUserStudyPlace(usr_id):
     d = openAboutPage(usr_id)
     studyPlaceElement = d.find_elements_by_xpath(
         "//div[contains(@class, '_6a')]//span[contains(@class, '_50f8')  and contains(@class, '_50f4')]")
     studyplace = d.execute_script("return arguments[0].innerText", studyPlaceElement[1])
+    d.close()
+
     return studyplace if (studyplace != "No schools to show") else ""
 
 
 def getUserHometown(usr_id):
     d = openAboutPage(usr_id)
-    homeTab = d.find_elements(By.PARTIAL_LINK_TEXT, "Places He's Lived")
-    if (len(homeTab) == 0):
-        homeTab = d.find_elements(By.PARTIAL_LINK_TEXT, "Places She's Lived")
+    d.execute_script("window.scrollTo(0,100)")
+    time.sleep(2)
+    homeTab = d.find_elements(By.PARTIAL_LINK_TEXT, "Lived")
+    time.sleep(1)
     homeTab[0].click()
-    time.wait(1)
+    time.sleep(1)
     currCity = d.find_elements_by_id('current_city')
-    return "" if (len(currCity) == 0) else d.execute_script("return arguments[0].innerText", currCity[0])
-
+    res = "" if (len(currCity) == 0) else d.execute_script("return arguments[0].innerText", currCity[0]).split('\n')[1]
+    d.close()
+    return res
 
 # ~~~~~ Groups Methods
 def getGroupMembers(groupName):
@@ -184,15 +220,6 @@ def openAboutPage(usr_id):
 def ConvertDataToFile(data):
     return 1
 
-
-def extractIdsFromHtml(html, d):
-    strr = html
-    lst_ids = [strr[m.start() + 15:m.start() + 30] for m in list(re.finditer("profile.php", strr))]
-    lst_ids = [idd[0:re.search("id=[0-9]+", idd).end()] for idd in lst_ids]
-    d.close()
-    return lst_ids
-
-
 # ~~~~~~~~~~~ Ideas
 def extractUserIdsFromUrl(url):
     return 1
@@ -204,11 +231,6 @@ def getFriendsListForUser(usr_id):
 
 def getMutualFriends(usr_id):
     return 1
-
-
-def extractIdsFromHtml(html):
-    return 1
-
 
 def extractGroupsFromHtml(html):
     return 1
@@ -222,3 +244,6 @@ def extractGroupsFromHtml(html):
     # date of create account
     # dates of friends added
     # friends in group
+
+# adami = getFriendsStatistics("100008258685419")
+# #adami = getFriends("100008258685419")
