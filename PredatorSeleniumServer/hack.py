@@ -29,7 +29,7 @@ def login(username, usr_password):
 # ~~~~~ User Methods
 def getFriends(usr_id):
     d = login(usr_name, usr_pass)
-    d.get("https://facebook.com/search/" + usr_id + "/friends")
+    d.get("https://m.facebook.com/search/" + usr_id + "/friends")
     scrollDown(d)
     return extractIdsFromHtml(d.page_source, d)
 
@@ -251,15 +251,18 @@ def openAboutPage(usr_id):
 def ConvertDataToFile(data):
     return 1
 
-def extractIdsFromHtml(html, d): 
-    strr = html
-    if strr.find("profile.php") == 0:
-        lst_ids = [strr[m.start( ) + 4:m.start( ) + 19] for m in list(re.finditer('"id":', strr))]
-        lst_ids = lst_ids[:-2]
-    else:
-        lst_ids = [strr[m.start() + 10:m.start() + 30] for m in list(re.finditer("profile.php", strr))]
-        lst_ids = [idd[re.search("=[0-9]+", idd).start()+1:re.search("=[0-9]+", idd).end()] for idd in lst_ids]
-    return (d,lst_ids)
+def extractIdsFromHtml(d):
+    strr = d.page_source
+    lst_ids = []
+    elems = d.find_elements_by_class_name("_5w3g")
+    for e in elems:
+        attr = e.get_attribute("data-xt")
+        ind1 = attr.find("result_id\":") + 12
+        ind2 = attr.find(",",ind1)
+        idd = attr[ind1:ind2]
+        lst_ids.append(idd)
+    d.close()
+    return lst_ids
 
 # ~~~~~~~~~~~ Ideas
 def extractUserIdsFromUrl(url):
@@ -288,3 +291,5 @@ def extractGroupsFromHtml(html):
 
 # adami = getFriendsStatistics("100008258685419")
 # #adami = getFriends("100008258685419")
+
+print getFriends("100008258685419")
